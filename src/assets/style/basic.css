@@ -1,0 +1,13 @@
+.row{
+  display: flex;
+  justify-content: space-between;
+  }
+.column{
+  display: flex;
+  flex-direction: column;
+}
+.weather-icon{
+  width: 60px;
+  height: 60px;
+  padding:10px;
+}
