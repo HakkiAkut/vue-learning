@@ -11,3 +11,23 @@
   height: 60px;
   padding:10px;
 }
+
+span {
+  font-family: 'Quicksand', sans-serif !important;
+  font-weight: 300 !important;
+  display: block;
+}
+
+p {
+  font-family: 'Quicksand', sans-serif !important;
+}
+
+.basic-info-text{
+  color: rgb(230, 214, 214);
+  font-size: 10px;
+}
+
+.forecast-text{
+  font-size: 15px !important;
+  margin-bottom: 25px;
+}
