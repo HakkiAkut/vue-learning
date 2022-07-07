@@ -1,16 +1,26 @@
 <template>
   <div>
     <div class="search-row row">
-      <input type="text" name="city" placeholder="Type in the city...">
-      <button> Search </button>
-      <button> <img src="../assets/icons/location.png" alt=""> </button>
+      <input type="text" v-model="city1" placeholder="Type in the city..." @keyup.enter="newCity">
+      <button v-on:click="newCity"> Search </button>
+      <button> <img src="../assets/icons/location.png" :alt="city"> </button>
     </div>
   </div>
 </template>
 
 <script>
   export default {
-    name: "SearchBlock"
+    props:['city'],
+    data: () => ( {
+      city1: ''
+    }),
+    name: "SearchBlock",
+    methods:{
+      newCity:function(){
+        this.$emit('changeCity',this.city1);
+        this.city1='';
+      }
+    }
   }
 </script>
 

@@ -1,20 +1,18 @@
 <template>
   <div class="wrapper">
     <div class="weather-container">
-      <SearchBlock/>
+      <SearchBlock :city="city" v-on:changeCity="updateCity($event)"/>
       <div class ="info-text-container">
-        <span id="city-name">Oslo</span>
+        <span id="city-name">{{city}}</span>
         <span class="basic-info-text">Last updated</span>
-        <span class="basic-info-text">Tue 5 Jul, 13:16</span>
+        <span class="basic-info-text">{{getDate()}}</span>
       </div>
-      <MainWeatherBlock condition="windy" temperature="15" humidity="49" wind="1.31" airPressure="1008"/>
+      <MainWeatherBlock :currentWeather="weather.current"/>
       <span class="basic-info-text forecast-text">Check the forecast for the upcoming hours</span>
       <div class="row">
-        <WeatherInfoBlock time="17.00" temperature="15°C 12°C"/>
-        <WeatherInfoBlock time="18.00" temperature="18°C 14°C"/>
-        <WeatherInfoBlock time="19.00" temperature="25°C 22°C"/>
-        <WeatherInfoBlock time="20.00" temperature="22°C 20°C"/>
-        <WeatherInfoBlock time="21.00" temperature="20°C 17°C"/>
+        <div v-for="item in weather.forecast">
+          <WeatherInfoBlock :forecast="item"/>
+        </div>
       </div>
     </div>      
   </div>
@@ -30,7 +28,66 @@ import SearchBlock from '../components/SearchBlock.vue'
       MainWeatherBlock,
       WeatherInfoBlock,
       SearchBlock
-    }
+    },
+    data: () => ( {
+      api:'http://api.weatherapi.com/v1/forecast.json?',
+      key:'<api key>',
+      city: 'Oslo',
+      weather:{
+        current:{
+          condition:'',
+          temperature:'',
+          humidity:'',
+          wind:'',
+          airPressure:'',
+        },
+        forecast:[]
+      },
+    }),
+    methods:{
+      getDate:function(){
+        var date = new Date().toLocaleString();
+        return date;
+      },
+      updateCity:function(value){
+        this.city=value;
+        this.getWeather();
+      },
+      getWeather: function(){
+        var url= this.api +'key=' + this.key +'&q='+this.city+ '&days=1&aqi=no&alerts=no'
+        fetch(url
+          ).then(response => response.json())
+          .then(data => {
+            console.log(data);
+            var currentHour = parseInt(new Date().getHours());
+            this.weather.current={
+              condition: data.current.condition.text,
+              icon:data.current.condition.icon,
+              temperature:data.current.temp_c,
+              humidity:data.current.humidity,
+              wind:data.current.wind_kph,
+              airPressure: data.current.pressure_mb,
+            };
+            this.weather.forecast=[]
+            for(var i=1; i<=5;i++){
+              if(currentHour+i==24){
+                break;
+              }
+              var forecast= data.forecast.forecastday[0].hour
+              var add = {
+                time: forecast[currentHour+i].time.split(" ")[1],
+                temperature: forecast[currentHour+i].temp_c,
+                condition: forecast[currentHour+i].condition.text,
+                icon: forecast[currentHour+i].condition.icon
+              }
+              this.weather.forecast.push(add);
+            }
+            });
+      }
+    },
+    beforeMount(){
+      this.getWeather();
+    },
   }
 </script>
 

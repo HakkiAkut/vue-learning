@@ -2,32 +2,28 @@
   <div>
     <div class="current-weather row">
       <div class="left">
-        <span id="condition-text">{{condition}}</span>
+        <span id="condition-text">{{currentWeather.condition}}</span>
         <div class="temperature">
-          <img src="../assets/icons/windy.png" alt="windy" class="weather-icon">
-          <p id="main-text">{{temperature}}</p> <p id="degree-text">°C</p>
+          <img :src="currentWeather.icon" :alt="currentWeather.condition" class="weather-icon">
+          <p id="main-text">{{currentWeather.temperature}}</p> <p id="degree-text">°C</p>
         </div>
         
       </div>
       <div class="middle-text">
-        <span class="basic-info-text">Humidity %{{humidity}}</span>
-        <span class="basic-info-text">Wind {{wind}} m/s</span>
-        <span class="basic-info-text">Air pressure {{airPressure}} hPa</span>
+        <span class="basic-info-text">Humidity %{{currentWeather.humidity}}</span>
+        <span class="basic-info-text">Wind {{currentWeather.wind}} m/s</span>
+        <span class="basic-info-text">Air pressure {{currentWeather.airPressure}} hPa</span>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-    export default {
-        name: "MainWeatherBlock",
-        props:["condition",
-          "temperature",
-          "humidity",
-          "wind",
-          "airPressure"
-        ]
-    }
+  export default {
+    name: "MainWeatherBlock",
+    props:["currentWeather",
+    ],
+  }
 </script>
 
 <style scoped>

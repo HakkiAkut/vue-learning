@@ -1,9 +1,9 @@
 <template>
   <div>
     <div class="column">
-      <span>{{time}}</span>
-      <img src="../assets/icons/windy.png" alt="windy" class="weather-icon">
-      <span>{{temperature}}</span>
+      <span>{{forecast.time}}</span>
+      <img :src="forecast.icon" :alt="forecast.condition" class="weather-icon">
+      <span>{{forecast.temperature}} °C</span>
     </div>
   </div>
 </template>
@@ -11,8 +11,7 @@
 <script>
     export default {
         name: "WeatherInfoBlock",
-        props:['time', 
-          'temperature'
+        props:['forecast', 
         ]
     }
 </script>
