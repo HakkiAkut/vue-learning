@@ -31,7 +31,7 @@ import SearchBlock from '../components/SearchBlock.vue'
     },
     data: () => ( {
       api:'http://api.weatherapi.com/v1/forecast.json?',
-      key:'<api key>',
+      key:'6b6a60e358af44c98a090144220707',
       city: 'Oslo',
       weather:{
         current:{
