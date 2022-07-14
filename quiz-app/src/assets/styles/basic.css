@@ -1,0 +1,14 @@
+ body{
+  background-color: rgb(248, 224, 192);
+}
+.wrapper{
+  align-items: center;
+}
+.row{
+  display: flex;
+  justify-content: space-between;
+    }
+.column{
+  display: flex;
+  flex-direction: column;
+}
