@@ -18,7 +18,7 @@
     props:['category'],
     data: () => ( {
       api:'https://quizapi.io/api/v1/questions',
-      key:'<api key>',
+      key:'KCyv6VsI6MW2twyh1tTgnVtu5UiGReulZW4rnRlt',
       questions:[],
     }),
     methods:{
