@@ -63,6 +63,7 @@ const actions = {
     });
     const response = await client.get();
     commit("setWeather", response.data);
+    console.log(response.data);
   },
 };
 
